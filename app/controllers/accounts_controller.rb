@@ -17,6 +17,10 @@ class AccountsController < ApplicationController
     @account = Account.new
   end
 
+  # POST /accounts/check
+  def check
+  end
+
   # GET /accounts/1/edit
   def edit
   end
