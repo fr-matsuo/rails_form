@@ -1,0 +1,57 @@
+<%= form_for(@account) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :sex %><br>
+    <%= f.text_field :sex %>
+  </div>
+  <div class="field">
+    <%= f.label :post_first %><br>
+    <%= f.text_field :post_first %>
+  </div>
+  <div class="field">
+    <%= f.label :post_last %><br>
+    <%= f.text_field :post_last %>
+  </div>
+  <div class="field">
+    <%= f.label :prefecture %><br>
+    <%= f.number_field :prefecture %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :hobby %><br>
+    <%= f.text_field :hobby %>
+  </div>
+  <div class="field">
+    <%= f.label :other_hobby %><br>
+    <%= f.text_area :other_hobby %>
+  </div>
+  <div class="field">
+    <%= f.label :opinion %><br>
+    <%= f.text_area :opinion %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

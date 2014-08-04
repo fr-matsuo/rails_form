@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @account.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @account.last_name %>
+</p>
+
+<p>
+  <strong>Sex:</strong>
+  <%= @account.sex %>
+</p>
+
+<p>
+  <strong>Post first:</strong>
+  <%= @account.post_first %>
+</p>
+
+<p>
+  <strong>Post last:</strong>
+  <%= @account.post_last %>
+</p>
+
+<p>
+  <strong>Prefecture:</strong>
+  <%= @account.prefecture %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @account.email %>
+</p>
+
+<p>
+  <strong>Hobby:</strong>
+  <%= @account.hobby %>
+</p>
+
+<p>
+  <strong>Other hobby:</strong>
+  <%= @account.other_hobby %>
+</p>
+
+<p>
+  <strong>Opinion:</strong>
+  <%= @account.opinion %>
+</p>
+
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Back', accounts_path %>
