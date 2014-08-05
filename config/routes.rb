@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
-  #resources :accounts
+  resources :accounts
 
-  get  'accounts/index'
-  get  'accounts/new'
+  #get  'accounts/index'
+  #get  'accounts/new'
   post 'accounts/check'
   post  'accounts/finish'
 
