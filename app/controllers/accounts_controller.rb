@@ -19,6 +19,11 @@ class AccountsController < ApplicationController
 
   # POST /accounts/check
   def check
+    @params = account_params
+  end
+
+  # GET /accounts/finish
+  def finish
   end
 
   # GET /accounts/1/edit
