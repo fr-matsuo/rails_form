@@ -23,6 +23,7 @@ class AccountsController < ApplicationController
   def check
     @page_pos = 'フォーム＞確認'
     @params = account_params
+    @params['hobby'] = (params['form_hobbys'] != nil) ? params['form_hobbys'] : 'isNil'
   end
 
   # GET /accounts/finish
