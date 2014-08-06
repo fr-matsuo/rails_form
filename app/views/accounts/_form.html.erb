@@ -44,10 +44,7 @@
     <label><%= check_box_tag 'form_hobbys[]', '音楽鑑賞', '' , {class: :hobby} %>音楽鑑賞</label>
     <label><%= check_box_tag 'form_hobbys[]', '映画鑑賞', '' , {class: :hobby} %>映画鑑賞</label>
     <label><%= check_box_tag 'form_hobbys[]', 'その他', '' , {class: :hobby} %>その他</label>
-  </div>
-  <div class="field">
-    <%= f.label :other_hobby %><br>
-    <%= f.text_area :other_hobby %>
+    <%= f.text_area :other_hobby, rows: 1 %>
   </div>
   <div class="field">
     <%= f.label :opinion %><br>
