@@ -20,8 +20,8 @@
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :sex %><br>
-    <%= f.text_field :sex %>
+    <label><%= f.radio_button :sex, '男性', class: :sex %>男性</label>
+    <label><%= f.radio_button :sex, '女性', class: :sex %>女性</label>
   </div>
   <div class="field">
     <%= f.label :post_first %><br>
