@@ -25,6 +25,10 @@ class AccountsController < ApplicationController
     @params = account_params
     @params['hobby'] = (params['form_hobbys'] != nil) ? params['form_hobbys'].join(",") : ''
     @account = Account.new(@params)
+    unless @account.valid?
+      #redirect_to :controller => 'accounts', :action => 'new'
+      render :new
+    end
   end
 
   # GET /accounts/finish
