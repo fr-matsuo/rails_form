@@ -28,6 +28,7 @@ class Account < ActiveRecord::Base
     presence: true,
     format: {with: /\A[A-Za-z][0-9A-Za-z-_.]*@[A-Za-z][0-9A-Za-z-_.]*[A-Za-z]\z/, allow_blank:true}
     
-  #validates :other_hobby
+  validates :other_hobby,
+    presence: {if: Proc.new {|ac| ac.hobby.include?('その他')}}
     
 end
