@@ -12,35 +12,32 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
+    <%= f.label '姓' %>
+    <%= f.text_field :first_name %><br>
+    <%= f.label '名' %>
+    <%= f.text_field :last_name %><br>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
+    <%= f.label '性別' %><br>
     <label><%= f.radio_button :sex, '男性', class: :sex %>男性</label>
     <label><%= f.radio_button :sex, '女性', class: :sex %>女性</label>
   </div>
   <div class="field">
-    <%= f.label :post_first %><br>
+    <%= f.label '郵便番号' %><br>
     <%= f.text_field :post_first %>
-  </div>
-  <div class="field">
-    <%= f.label :post_last %><br>
     <%= f.text_field :post_last %>
   </div>
   <div class="field">
-    <%= f.label :prefecture %><br>
+    <%= f.label '都道府県' %><br>
     <%= f.number_field :prefecture %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label 'メールアドレス' %><br>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :hobby %><br>
+    <%= f.label '趣味' %><br>
+    趣味は何ですか？<br>
     <label><%= check_box_tag 'form_hobbys[]', '音楽鑑賞', '' , {class: :hobby} %>音楽鑑賞</label>
     <label><%= check_box_tag 'form_hobbys[]', '映画鑑賞', '' , {class: :hobby} %>映画鑑賞</label>
     <label><%= check_box_tag 'form_hobbys[]', 'その他', '' , {class: :hobby} %>その他</label>
