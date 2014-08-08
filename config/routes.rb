@@ -2,8 +2,7 @@ Rails.application.routes.draw do
 
   resources :accounts
 
-  #get  'accounts/index'
-  #get  'accounts/new'
+  post  'accounts/new'
   post 'accounts/check'
   post  'accounts/finish'
 

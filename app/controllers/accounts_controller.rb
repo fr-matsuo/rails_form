@@ -16,7 +16,15 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @page_pos = 'フォーム＞入力'
-    @account = Account.new
+    http_request = request.env['REQUEST_METHOD']
+    puts 'リクエスト：'
+    puts http_request
+    if http_request == 'GET'
+      @account = Account.new
+    elsif http_request == 'POST'
+      @account = Account.new(account_params)
+    end
+
   end
 
   # POST /accounts/check
