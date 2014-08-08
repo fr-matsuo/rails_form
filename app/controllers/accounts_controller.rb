@@ -22,18 +22,19 @@ class AccountsController < ApplicationController
   # POST /accounts/check
   def check
     @page_pos = 'フォーム＞確認'
-    @params = account_params
+    @account_params = account_params
+    puts @account_params
 
     #選択された趣味の配列を文字列に
-    hobbys = @params['form_hobbys'] != nil ? @params['form_hobbys'] : Array.new
-    if !@params['other_hobby'].empty? && hobbys.index('その他') == nil
+    hobbys = params['hobbys']
+    hobbys ||= Array.new
+    if !@account_params['other_hobby'].empty? && hobbys.index('その他').nil?
       hobbys.push 'その他'
     end
-    @params['hobby'] = hobbys.join(",")
+    @account_params['hobby'] = hobbys.join(",")
 
-    @account = Account.new(@params)
+    @account = Account.new(@account_params)
     unless @account.valid?
-      #redirect_to :controller => 'accounts', :action => 'new'
       render :new
     end
   end
