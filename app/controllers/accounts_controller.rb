@@ -14,6 +14,7 @@ class AccountsController < ApplicationController
   end
 
   # GET /accounts/new
+  # POST /accounts/new
   def new
     @page_pos = 'フォーム＞入力'
     http_request = request.env['REQUEST_METHOD']
@@ -22,6 +23,8 @@ class AccountsController < ApplicationController
     if http_request == 'GET'
       @account = Account.new
     elsif http_request == 'POST'
+      params = account_params
+      @hobbys = params['hobby'].split(',')
       @account = Account.new(account_params)
     end
 
