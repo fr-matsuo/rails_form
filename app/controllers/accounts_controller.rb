@@ -31,15 +31,8 @@ class AccountsController < ApplicationController
   def check
     @page_pos = 'フォーム＞確認'
     @account_params = account_params
-    puts @account_params
 
-    #選択された趣味の配列を文字列に
-    hobbys = params['hobbys']
-    hobbys ||= Array.new
-    if !@account_params['other_hobby'].empty? && hobbys.index('その他').nil?
-      hobbys.push 'その他'
-    end
-    @account_params['hobby'] = hobbys.join(",")
+    adjust_params!(@account_params)
 
     @account = Account.new(@account_params)
     unless @account.valid?
@@ -105,5 +98,28 @@ class AccountsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
       params.require(:account).permit(:first_name, :last_name, :sex, :post_first, :post_last, :prefecture, :email, :hobby, :other_hobby, :opinion)
+    end
+
+    def adjust_params!(account_params)
+      set_hobbys!(account_params)
+      strip_texts!(account_params)
+    end
+
+    def set_hobbys!(account_params)
+      #選択された趣味の配列を文字列に
+      hobbys = params['hobbys']
+      hobbys ||= Array.new
+      if !account_params['other_hobby'].empty? && hobbys.index('その他').nil?
+        hobbys.push 'その他'
+      end
+      account_params['hobby'] = hobbys.join(",")
+    end
+
+    def strip_texts!(account_param)
+      attrs = [:first_name, :last_name, :post_first, :post_last, :email, :other_hobby, :opinion]
+      attrs.each {|attr|
+        account_params[attr].gsub!(/^[　\s]*(.*?)[　\s]*$/, '\1')
+
+      }
     end
 end
