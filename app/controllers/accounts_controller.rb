@@ -4,6 +4,7 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
+    @page_pos = 'フォーム＞TOPページ'
     @accounts = Account.all
   end
 
@@ -14,16 +15,19 @@ class AccountsController < ApplicationController
 
   # GET /accounts/new
   def new
+    @page_pos = 'フォーム＞入力'
     @account = Account.new
   end
 
   # POST /accounts/check
   def check
+    @page_pos = 'フォーム＞確認'
     @params = account_params
   end
 
   # GET /accounts/finish
   def finish
+    @page_pos = 'フォーム＞完了'
   end
 
   # GET /accounts/1/edit
