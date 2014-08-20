@@ -41,7 +41,22 @@ class AccountsController < ApplicationController
 
   # GET /accounts/finish
   def finish
+    @account = Account.new(account_params)
+
     @page_pos = 'フォーム＞完了'
+
+    respond_to do |format|
+      if @account.save
+        format.html {
+          render :finish
+        }
+      else
+        format.html {
+          @notice = '既に登録されたアカウントです。'
+          render :new
+        }
+      end
+    end
   end
 
   private
