@@ -22,6 +22,7 @@ class AccountsController < ApplicationController
     puts http_request
     if http_request == 'GET'
       @account = Account.new
+      @hobbys = Array.new
     elsif http_request == 'POST'
       params = account_params
       @hobbys = params['hobby'].split(',')
@@ -38,9 +39,7 @@ class AccountsController < ApplicationController
     adjust_params!(@account_params)
 
     @account = Account.new(@account_params)
-    unless @account.valid?
-      render :new
-    end
+    render :new unless @account.valid?
   end
 
   # GET /accounts/finish
@@ -110,19 +109,16 @@ class AccountsController < ApplicationController
 
     def set_hobbys!(account_params)
       #選択された趣味の配列を文字列に
-      hobbys = params['hobbys']
-      hobbys ||= Array.new
-      if !account_params['other_hobby'].empty? && hobbys.index('その他').nil?
+      hobbys = params['hobbys'] || Array.new
+      if account_params['other_hobby'].present? && hobbys.index('その他').nil?
         hobbys.push 'その他'
       end
       account_params['hobby'] = hobbys.join(",")
     end
 
     def strip_texts!(account_param)
+      strip_pattern = (/^[　\s]*(.*?)[　\s]*$/)
       attrs = [:first_name, :last_name, :post_first, :post_last, :email, :other_hobby, :opinion]
-      attrs.each {|attr|
-        account_params[attr].gsub!(/^[　\s]*(.*?)[　\s]*$/, '\1')
-
-      }
+      attrs.each {|attr| account_params[attr].gsub!(strip_pattern, '\1') }
     end
 end
