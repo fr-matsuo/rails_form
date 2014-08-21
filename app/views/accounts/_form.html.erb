@@ -38,9 +38,9 @@
   <div class="field">
     <%= f.label '趣味' %><br>
     趣味は何ですか？<br>
-    <label><%= check_box_tag 'hobbys[]', '音楽鑑賞', @hobbys.index('音楽鑑賞').present? , {class: :hobby} %>音楽鑑賞</label>
-    <label><%= check_box_tag 'hobbys[]', '映画鑑賞', @hobbys.index('映画鑑賞').present? , {class: :hobby} %>映画鑑賞</label>
-    <label><%= check_box_tag 'hobbys[]', 'その他', @hobbys.index('その他').present? , {class: :hobby} %>その他</label>
+    <label><%= check_box_tag 'hobbys[]', '音楽鑑賞', @hobbys.index('音楽鑑賞').present?, {class: :hobby} %>音楽鑑賞</label>
+    <label><%= check_box_tag 'hobbys[]', '映画鑑賞', @hobbys.index('映画鑑賞').present?, {class: :hobby} %>映画鑑賞</label>
+    <label><%= check_box_tag 'hobbys[]', 'その他', @hobbys.index('その他').present?, {class: :hobby} %>その他</label>
     <%= f.text_area :other_hobby, rows: 1 %>
   </div>
   <div class="field">

@@ -42,7 +42,11 @@ class AccountsController < ApplicationController
   # GET /accounts/finish
   def finish
     @account = Account.new(account_params)
-
+    if params[:toNew]
+        @hobbys = params[:account][:hobby].nil? ? Array.new : params[:account][:hobby].split(',')
+        render :new
+        return
+    end
     @page_pos = 'フォーム＞完了'
 
     respond_to do |format|
