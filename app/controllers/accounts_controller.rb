@@ -39,7 +39,11 @@ class AccountsController < ApplicationController
     adjust_params!(@account_params)
 
     @account = Account.new(@account_params)
-    render :new unless @account.valid?
+    unless @account.valid?
+        @hobbys = params['hobbys'] || Array.new
+        render :new
+        return
+    end
   end
 
   # GET /accounts/finish
