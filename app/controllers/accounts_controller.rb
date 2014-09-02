@@ -4,6 +4,8 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
+    return if check_400(request, 'GET')
+
     @page_pos = 'フォーム＞TOPページ'
     @accounts = Account.all
   end
@@ -16,12 +18,13 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   # POST /accounts/new
   def new
+    return if check_400(request, ['GET', 'POST'])
+
     @page_pos = 'フォーム＞入力'
-    http_request = request.env['REQUEST_METHOD']
-    if http_request == 'GET'
+    if request.get?
       @account = Account.new
       @hobbys = Array.new
-    elsif http_request == 'POST'
+    elsif request.post?
       params = account_params
       @hobbys = params['hobby'].split(',')
       @account = Account.new(account_params)
@@ -30,6 +33,8 @@ class AccountsController < ApplicationController
 
   # POST /accounts/check
   def check
+    return if check_400(request, 'POST')
+
     @page_pos = 'フォーム＞確認'
 
     @account = Account.new(adjust_params!(account_params))
@@ -42,6 +47,8 @@ class AccountsController < ApplicationController
 
   # GET /accounts/finish
   def finish
+    return if check_400(request, 'POST')
+
     @page_pos = 'フォーム＞完了'
   end
 
@@ -119,5 +126,27 @@ class AccountsController < ApplicationController
       strip_pattern = (/^[　\s]*(.*?)[　\s]*$/)
       attrs = [:first_name, :last_name, :post_first, :post_last, :email, :other_hobby, :opinion]
       attrs.each {|attr| account_params[attr].gsub!(strip_pattern, '\1') }
+    end
+
+    def check_400(request, accepted_request)
+      unless accepted_request.is_a?(Array)
+        accepted_request = Array(accepted_request)
+      end
+      accepted_request.each do |ac|
+        return false if request.method == ac
+      end
+
+      error_messages = ['予期しないリクエストが渡されました。', 'URLを確認してください。']
+      render_error(400, 'Bad Request : ' + request.method, error_messages)
+      return true
+    end
+
+    def render_error(status, status_text, messages)
+      @page_pos       = 'Error!'
+      @status_text    = status.to_s + ' ' + status_text
+      @error_messages = messages
+
+      logger.error(@status_text)
+      render 'error', status: status
     end
 end
