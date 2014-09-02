@@ -18,8 +18,6 @@ class AccountsController < ApplicationController
   def new
     @page_pos = 'フォーム＞入力'
     http_request = request.env['REQUEST_METHOD']
-    puts 'リクエスト：'
-    puts http_request
     if http_request == 'GET'
       @account = Account.new
       @hobbys = Array.new
@@ -28,21 +26,17 @@ class AccountsController < ApplicationController
       @hobbys = params['hobby'].split(',')
       @account = Account.new(account_params)
     end
-
   end
 
   # POST /accounts/check
   def check
     @page_pos = 'フォーム＞確認'
-    @account_params = account_params
 
-    adjust_params!(@account_params)
-
-    @account = Account.new(@account_params)
+    @account = Account.new(adjust_params!(account_params))
     unless @account.valid?
-        @hobbys = params['hobbys'] || Array.new
-        render :new
-        return
+      @hobbys = params['hobbys'] || Array.new
+      render :new
+      return
     end
   end
 
@@ -109,6 +103,7 @@ class AccountsController < ApplicationController
     def adjust_params!(account_params)
       set_hobbys!(account_params)
       strip_texts!(account_params)
+      return account_params
     end
 
     def set_hobbys!(account_params)
