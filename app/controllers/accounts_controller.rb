@@ -43,23 +43,16 @@ class AccountsController < ApplicationController
   def finish
     @account = Account.new(account_params)
     if params[:toNew]
-        @hobbys = params[:account][:hobby].nil? ? Array.new : params[:account][:hobby].split(',')
-        render :new
-        return
+      @hobbys = params[:account][:hobby].nil? ? Array.new : params[:account][:hobby].split(',')
+      render :new and return
     end
     @page_pos = 'フォーム＞完了'
 
-    respond_to do |format|
-      if @account.save
-        format.html {
-          render :finish
-        }
-      else
-        format.html {
-          @notice = '既に登録されたアカウントです。'
-          render :new
-        }
-      end
+    if @account.save
+      render :finish
+    else
+      @notice = '既に登録されたアカウントです。'
+      render :new
     end
   end
 
