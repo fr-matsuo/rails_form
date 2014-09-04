@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :accounts
+  resources :accounts, :only => [:index, :new]
 
   post 'accounts/new'
   post 'accounts/check'
