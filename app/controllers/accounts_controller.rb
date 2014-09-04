@@ -25,6 +25,8 @@ class AccountsController < ApplicationController
       @account = Account.new(params)
       @hobbys = params['hobby'].split(',')
     end
+
+    @prefectures = Prefecture.all
   end
 
   # POST /accounts/check
@@ -37,6 +39,8 @@ class AccountsController < ApplicationController
       render :new
       return
     end
+
+    @prefecture = Prefecture.where("pref_id = ?", @account.prefecture).first.pref_name
   end
 
   # GET /accounts/finish
@@ -44,6 +48,7 @@ class AccountsController < ApplicationController
     @account = Account.new(account_params)
     if params[:toNew]
       @hobbys = params[:account][:hobby].nil? ? Array.new : params[:account][:hobby].split(',')
+      @prefectures = Prefecture.all
       render :new and return
     end
     @page_pos = 'フォーム＞完了'
