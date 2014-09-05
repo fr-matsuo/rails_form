@@ -33,7 +33,7 @@
 <%= @account.opinion %>
 
 <%= form_for @account, :url => {:action => 'finish'} do |f| %>
-  <% [:first_name, :last_name, :sex, :post_first, :post_last, :prefecture, :email, :hobby, :other_hobby, :opinion].each do |attr| %>
+  <% [:first_name, :last_name, :sex, :post_first, :post_last, :prefecture_id, :email, :hobby, :other_hobby, :opinion].each do |attr| %>
     <%= f.hidden_field attr %>
   <% end %>
   <%= f.submit '送信', :name => 'toFinish' %>

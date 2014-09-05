@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821072431) do
+ActiveRecord::Schema.define(version: 20140905025446) do
 
   create_table "accounts", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "sex"
-    t.string   "post_first"
-    t.string   "post_last"
-    t.integer  "prefecture"
-    t.string   "email"
+    t.string   "first_name",    null: false
+    t.string   "last_name",     null: false
+    t.string   "sex",           null: false
+    t.string   "post_first",    null: false
+    t.string   "post_last",     null: false
+    t.integer  "prefecture_id", null: false
+    t.string   "email",         null: false
     t.string   "hobby"
     t.text     "other_hobby"
     t.text     "opinion"

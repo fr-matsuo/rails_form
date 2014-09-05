@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
       return
     end
 
-    @prefecture = Prefecture.where("pref_id = ?", @account.prefecture).first.pref_name
+    @prefecture = @account.prefecture.pref_name
   end
 
   # GET /accounts/finish
@@ -69,7 +69,7 @@ class AccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
-      params.require(:account).permit(:first_name, :last_name, :sex, :post_first, :post_last, :prefecture, :email, :hobby, :other_hobby, :opinion)
+      params.require(:account).permit(:first_name, :last_name, :sex, :post_first, :post_last, :prefecture_id, :email, :hobby, :other_hobby, :opinion)
     end
 
     def adjust_params!(account_params)

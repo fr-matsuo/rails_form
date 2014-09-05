@@ -1,4 +1,6 @@
 class Account < ActiveRecord::Base
+  belongs_to :prefecture
+
   validates :first_name,
     presence: { message: '姓を入力してください。' },
     length:{
@@ -35,7 +37,7 @@ class Account < ActiveRecord::Base
       allow_blank:true
     }
   
-  validates :prefecture,
+  validates :prefecture_id,
     presence: { message: '都道府県を選択してください。' },
     numericality: {
       only_integer: true,
