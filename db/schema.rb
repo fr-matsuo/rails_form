@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905025446) do
+ActiveRecord::Schema.define(version: 20140905034556) do
 
   create_table "accounts", force: true do |t|
     t.string   "first_name",    null: false
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20140905025446) do
   end
 
   create_table "prefectures", force: true do |t|
-    t.integer  "pref_id"
     t.string   "pref_name"
     t.datetime "created_at"
     t.datetime "updated_at"
