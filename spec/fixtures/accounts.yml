@@ -1,0 +1,11 @@
+pass_data:
+    first_name:    first_name
+    last_name:     last_name
+    sex:           男性
+    post_first:    111
+    post_last:     2233
+    prefecture_id: 44
+    email:         test@exsample.com
+    hobby:         音楽鑑賞,その他
+    other_hobby:   hobby
+    opinion:       opinion
