@@ -23,8 +23,10 @@ class AccountsController < ApplicationController
     if request.post?
       params = account_params
       @account = Account.new(params)
-      @hobbys = params['hobby'].split(',')
+      @hobbys = params['hobby'].nil? ? Array.new : params['hobby'].split(',')
     end
+
+    @prefectures = Prefecture.all
   end
 
   # POST /accounts/check
@@ -34,26 +36,26 @@ class AccountsController < ApplicationController
     @account = Account.new(adjust_params!(account_params))
     unless @account.valid?
       @hobbys = params['hobbys'] || Array.new
-      render :new
-      return
+      @prefectures = Prefecture.all
+      render :new and return
     end
+
+    @prefecture = @account.prefecture.pref_name
   end
 
   # GET /accounts/finish
   def finish
-    @account = Account.new(account_params)
     if params[:toNew]
-      @hobbys = params[:account][:hobby].nil? ? Array.new : params[:account][:hobby].split(',')
-      render :new and return
+      redirect_to :action => 'new', :status => 307 and return
     end
-    @page_pos = 'フォーム＞完了'
 
-    if @account.save
-      render :finish
-    else
+    @account = Account.new(account_params)
+    if @account.save == false
       @notice = '既に登録されたアカウントです。'
-      render :new
+      redirect_to :action => 'new', :status => 307 and return
     end
+
+    @page_pos = 'フォーム＞完了'
   end
 
   private
@@ -64,7 +66,7 @@ class AccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
-      params.require(:account).permit(:first_name, :last_name, :sex, :post_first, :post_last, :prefecture, :email, :hobby, :other_hobby, :opinion)
+      params.require(:account).permit(:first_name, :last_name, :sex, :post_first, :post_last, :prefecture_id, :email, :hobby, :other_hobby, :opinion)
     end
 
     def adjust_params!(account_params)
