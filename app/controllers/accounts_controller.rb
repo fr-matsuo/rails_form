@@ -23,7 +23,7 @@ class AccountsController < ApplicationController
     if request.post?
       params = account_params
       @account = Account.new(params)
-      @hobbys = !params['hobby'].nil? ? params['hobby'].split(',') : Array.new
+      @hobbys = params['hobby'].nil? ? Array.new : params['hobby'].split(',')
     end
 
     @prefectures = Prefecture.all
@@ -45,12 +45,13 @@ class AccountsController < ApplicationController
 
   # GET /accounts/finish
   def finish
-    @account = Account.new(account_params)
-    if params[:toNew] || (saved = @account.save) == false
-      @hobbys = params[:account][:hobby].nil? ? Array.new : params[:account][:hobby].split(',')
-      @prefectures = Prefecture.all
+    if params[:toNew]
+      redirect_to :action => 'new', :status => 307 and return
+    end
 
-      @notice = '既に登録されたアカウントです。' unless saved
+    @account = Account.new(account_params)
+    if @account.save == false
+      @notice = '既に登録されたアカウントです。'
       redirect_to :action => 'new', :status => 307 and return
     end
 
